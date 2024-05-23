@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fertilizers Sign In</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+        }
+
+        .signin-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .signin-box {
+            display: flex;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .signin-form {
+            padding: 20px;
+            width: 500px; /* Adjusted width to maintain consistency */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .signin-form h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #4CAF50;
+            text-align: center;
+        }
+
+        .signin-form input[type="text"], .signin-form input[type="password"], .signin-form input[type="email"], .signin-form input[type="tel"] {
+            width: calc(100% - 20px); /* Adjusted width to maintain consistency */
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .signin-form button {
+            width: calc(100% - 20px); /* Adjusted width to maintain consistency */
+            padding: 10px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .signin-form button:hover {
+            background-color: #45a049;
+        }
+
+        .signin-image {
+            width:100%; /* Increased image width */
+            background: url('https://janathaagro.com/blogimage/23322-Plant%20grown%20using%20organic%20fertilizer%20Janatha%20Agro.jpg') no-repeat center center;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="signin-container">
+        <div class="signin-box">
+            <div class="signin-form">
+                <h1>Sign In</h1>
+                <form>
+                    <input type="text" placeholder="Name" required>
+                    <input type="email" placeholder="Email" required>
+                    <input type="tel" placeholder="Phone Number" required>
+                    <input type="password" placeholder="Password" required>
+                    <input type="password" placeholder="Confirm Password" required>
+                    <button type="submit">Sign In</button>
+                </form>
+            </div>
+            <div class="signin-image"></div>
+        </div>
+    </div>
+</body>
+</html>

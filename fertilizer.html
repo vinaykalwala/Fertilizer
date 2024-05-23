@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fertilizers</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body {
+            padding-top: 3rem;
+            background-color: #f4f5f7;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+           
+        }
+            .header {
+                background-color: #267b20;
+                color: #fff;
+                padding: 10px 0;
+                position: fixed;
+                width: 100%;
+                z-index: 1000;
+            }
+            .header .container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+            .header .nav-links {
+                display: flex;
+                flex-direction: row;
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+            }
+            .header .nav-links li {
+                margin: 0;
+            }
+            .header .nav-links a {
+                color: #fff;
+                text-decoration: none;
+                padding: 10px 15px;
+                transition: background-color 0.3s;
+            }
+            .header .nav-links a:hover {
+                background-color: #495057;
+            }
+            .header .btn {
+                margin-left: 10px;
+            }
+            .header .toggle-button {
+                display: none;
+                flex-direction: column;
+                cursor: pointer;
+            }
+            .header .toggle-button div {
+                width: 25px;
+                height: 3px;
+                background-color: #fff;
+                margin: 4px 0;
+                transition: all 0.3s;
+            }
+            @media (max-width: 768px) {
+                .header .nav-links, .header .col-auto {
+                    display: none;
+                    flex-direction: column;
+                    width: 100%;
+                    text-align: center;
+                    background-color: #343a40;
+                }
+                .header .nav-links a {
+                    padding: 15px;
+                    border-top: 1px solid #495057;
+                }
+                .header .toggle-button {
+                    display: flex;
+                }
+                .header .nav-links.active, .header .col-auto.active {
+                    display: flex;
+                }
+            }
+        .col {
+            display: flex;
+            gap: 50px; /* Adjust the value as needed */
+        }
+
+        #col-auto {
+            display: flex;
+            gap: 10px;
+        }
+
+        #col-auto a button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        #col-auto a button:hover {
+            background-color: #0056b3;
+        }
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .card {
+            width: 31%;
+            margin-bottom: 2rem;
+        }
+        .showcase {
+            height: 30rem;
+            background-image: url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8Mnw2TExrQ0VLTmx2VXx8ZW58MHx8fHx8&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+        .showcase h1 {
+            margin-bottom: 2rem;
+            font-size: 4rem;
+        }
+        .showcase p {
+            font-size: 1.5rem;
+        }
+       
+        .benefit-item {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .benefit-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        .benefit-icon, .benefit-text {
+            /* Fallback for browsers that do not support gradient text */
+            color: #28a745; /* You can choose a solid color fallback that fits the design */
+        }
+        
+        .benefit-icon, .benefit-text {
+            background: linear-gradient(45deg, #28a745, #77b036);
+            /* Clipping the background to the text for supporting browsers */
+            background-clip: text;
+            -webkit-background-clip: text;
+            -moz-background-clip: text;
+            /* Ensuring text is visible and unstyled when clipping isn't supported */
+            -webkit-text-fill-color: transparent;
+            /* Standard property, though not widely supported */
+        }
+        
+        /* Added compatibility for Mozilla-based browsers */
+        @supports (-moz-background-clip: text) {
+            .benefit-icon, .benefit-text {
+                color: transparent;
+            }
+        }
+        
+        .scrolling-wrapper {
+            width: 100%; 
+            overflow: hidden; 
+        }
+        
+        .product-grid {
+            display: flex;
+            animation: scroll-left 20s linear infinite;
+            white-space: nowrap;
+        }
+        
+        @keyframes scroll-left {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(-50%);
+            }
+        }
+        
+        .product-card {
+            margin: 10px;
+           
+            flex-shrink: 0; /* Prevent flex items from shrinking */
+            /* Add other styles as before */
+        }
+        
+        .product-grid {
+            display: flex;  /* Makes all product cards line up in a row */
+            white-space: nowrap;  /* Prevents line breaks within the grid */
+        }
+        
+       
+        
+        .product-card img {
+            max-width: 100%;  /* Makes images responsive */
+            height: 350px;  /* Maintain aspect ratio */
+            display: block;  /* Removes bottom space/gap */
+        }
+        .product-card h3 {
+            font-size: calc(18px + (26 - 18) * ((100vw - 300px) / (1600 - 300))); /* Responsive font size */
+            color: #b91515; /* Dark grey color for text */
+            font-weight: bold;
+            padding: 10px;
+            margin-top: 10px;
+            text-align: center; /* Center-align the text */
+                }
+        
+        .product-card p {
+            color: #666;
+        }
+        
+        
+        
+        
+        
+        footer {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: absolute;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="#" class="navbar-brand text-white">FERTILIZER</a>
+            <div class="toggle-button" id="toggle-button">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Gallery</a></li>
+            </ul>
+            <div class="col-auto" id="col-auto">
+                <a href="login.html"><button>Login</button></a>
+                <a href="signup.html"><button>Sign up</button></a>
+            </div>
+        </div>
+    </header>
+
+    <br>
+    
+    <section class="showcase">
+        <div class="container">
+            <div class="row">
+                <div>
+                    <h1>Grow Your Plants with the Best Fertilizers</h1>
+                    <p>We provide high-quality fertilizers for all types of plants.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+<br>
+<div class="content" style="padding: 20px; background-color: #f9f9f9;">
+    <h2 class="text-success text-center mb-4" ><strong> Welcome to Super Duper Fertilizer</strong></h2>
+    <p class="text-center">Super Duper Fertilizer is your one-stop solution for all your agricultural needs. Whether you are a seasoned farmer or just starting out, we have the products and expertise to help you achieve greater yields and healthier crops.</p>
+    <div class="row justify-content-center">
+        <div class="col-md-6 mb-3 image-container">
+            <img src="https://imageio.forbes.com/specials-images/imageserve/64428dc668bbbe9378ebd709//960x0.jpg?height=473&width=711&fit=bounds" alt="Greenery Image" class="img-fluid rounded shadow">
+        </div>
+        <div class="col-md-6 mb-3 image-container">
+            <img src="farmer.webp" alt="Greenery Image" class="img-fluid rounded shadow">
+        </div>
+    </div>
+</div>
+
+    
+<p style="text-align: center; color:red">India ranks third place in the world’s overall fertilizer production, second in nitrogen fertilizers, and third in phosphate fertilizers. Moreover, about 25% of GDP market capitalization is from fertilizers. The production status of different fertilizers is in the following trends</p>
+
+<section class="products py-5 bg-light text-center">
+    
+    <h2 class="mb-4 bg-success text-white p-3 rounded">Our Mineral Fertilizers</h2>
+    <div class="scrolling-wrapper">
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="https://nordfert.com/wp-content/uploads/2021/08/what-is-nitrogen-fertilizer.jpeg" alt="Liquid Fertilizer">
+                <h3>Nitrogen Fertilizers</h3>
+            </div>
+            <div class="product-card">
+                <img src="https://media.licdn.com/dms/image/C5612AQE3AEQSfzJpdg/article-cover_image-shrink_720_1280/0/1651903572277?e=2147483647&v=beta&t=F4lU_kQCh6tIE3c5wrzisil8WEiXpBEhjCHhJkWCl3Y" alt="Liquid Fertilizer">
+                <h3>Phosphorus Fertilizer</h3>
+            </div>
+            <div class="product-card">
+                <img src="https://media.licdn.com/dms/image/C4E12AQF57J0c8mwxXA/article-cover_image-shrink_720_1280/0/1520207822514?e=2147483647&v=beta&t=KljAXZ7Nrnds3z34VWbboCZBiiiOH0KH7QvuSgA2bdI" alt="Liquid Fertilizer">
+                <h3>Potassium Fertilizer</h3>
+            </div>
+            <div class="product-card">
+                <img src="https://m.media-amazon.com/images/I/71BnMWYnDfL._AC_UF1000,1000_QL80_DpWeblab_.jpg" alt="Liquid Fertilizer">
+                <h3>Micronutrient Fertilizer</h3>
+            </div>
+            <div class="product-card">
+                <img src="https://www.asiafarming.com/wp-content/uploads/2018/02/Compost-Preparation.-e1523079747182.jpg" alt="Liquid Fertilizer">
+                <h3>Compost</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="products py-5 bg-light text-center">
+    
+    <h2 class="mb-4 bg-success text-white p-3 rounded">Our Organic Fertilizers</h2>
+    <div class="scrolling-wrapper">
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="https://media.istockphoto.com/id/684977254/photo/farmer-hand-giving-plant-organic-humus-fertilizer-to-plant.jpg?s=612x612&w=0&k=20&c=SjD1diUDXEBmXRF1My6lDdwV9BGpPTD1yWUCwz8235U=" alt="Liquid Fertilizer">
+                <h3>Manure</h3>
+            </div>
+            <div class="product-card">
+                <img src="https://static.vecteezy.com/system/resources/previews/040/139/938/non_2x/ai-generated-generative-ai-word-compost-made-of-food-waste-compost-and-soil-environmental-background-biodegradable-kitchen-waste-composting-organic-food-photo.jpg" alt="Liquid Fertilizer">
+                <h3>Compost</h3>
+            </div>
+            <div class="product-card">
+                <img src="https://www.spic.in/wp-content/uploads/2021/10/rock-phosphate.jpg" alt="Liquid Fertilizer">
+                <h3>Rock Phospate</h3>
+            </div>
+            <div class="product-card">
+                <img src="https://rukminim2.flixcart.com/image/850/1000/kl9rssw0/soil-manure/2/q/3/5-organic-vermicompost-garden-organic-fertilizer-pack-of-5kg-original-imagyfjuqusrksc5.jpeg?q=90&crop=false" alt="Liquid Fertilizer">
+                <h3> Vermicompost</h3>
+            </div>
+            <div class="product-card">
+                <img src="https://anoosaara.com/wp-content/uploads/2018/08/Chicken-manure.jpg" alt="Liquid Fertilizer">
+                <h3>Chicken Litter</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="benefits py-5 bg-custom text-center">
+    <div class="container">
+        <h2 class="mb-4 bg-success text-white p-3 rounded">Benefits of Our Fertilizers</h2>
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <div class="benefit-item p-4 shadow-sm rounded bg-white">
+                    <i class="fas fa-seedling fa-3x benefit-icon mb-3"></i>
+                    <h5 class="benefit-text">Improve Soil Health</h5>
+                    <p>Enhance the natural fertility of your soil.</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="benefit-item p-4 shadow-sm rounded bg-white">
+                    <i class="fas fa-leaf fa-3x benefit-icon mb-3"></i>
+                    <h5 class="benefit-text">Promote Strong Root Development</h5>
+                    <p>Support robust root systems for healthier plants.</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="benefit-item p-4 shadow-sm rounded bg-white">
+                    <i class="fas fa-chart-line fa-3x benefit-icon mb-3"></i>
+                    <h5 class="benefit-text">Increase Crop Yields</h5>
+                    <p>Boost your harvest with our effective fertilizers.</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="benefit-item p-4 shadow-sm rounded bg-white">
+                    <i class="fas fa-recycle fa-3x benefit-icon mb-3"></i>
+                    <h5 class="benefit-text">Eco-Friendly Options</h5>
+                    <p>Choose sustainable solutions for your farming needs.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<br>
+
+
+
+<div class="related-content" style="padding: 20px; background-color: #f8f9fa; border-top: 2px solid #4CAF50; border-bottom: 2px solid #4CAF50;">
+    <h2 style="color: #4CAF50; text-align: center; font-size: 2rem; margin-bottom: 20px;">Why Choose Super Duper Fertilizer?</h2>
+    <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;">
+        <div style="flex: 1; text-align: center; margin: 10px;">
+            <img src="trusted.png" alt="Trusted Suppliers" style="width: 150px; border-radius: 50%; border: 2px solid #4CAF50;">
+            <h3 style="margin-top: 10px; color: #4CAF50;">Trusted Suppliers</h3>
+        </div>
+        <div style="flex: 1; text-align: center; margin: 10px;">
+            <img src="invotive.png" alt="Innovative Solutions" style="width: 150px; border-radius: 50%; border: 2px solid #4CAF50;">
+            <h3 style="margin-top: 10px; color: #4CAF50;">Innovative Solutions</h3>
+        </div>
+        <div style="flex: 1; text-align: center; margin: 10px;">
+            <img src="person.jpg" alt="Personalized Service" style="width: 150px; border-radius: 50%; border: 2px solid #4CAF50;">
+            <h3 style="margin-top: 10px; color: #4CAF50;">Personalized Service</h3>
+        </div>
+        <div style="flex: 1; text-align: center; margin: 10px;">
+            <img src="eco.jpg" alt="Eco-Friendly" style="width: 150px; border-radius: 50%; border: 2px solid #4CAF50;">
+            <h3 style="margin-top: 10px; color: #4CAF50;">Eco-Friendly </h3>
+        </div>
+        <div style="flex: 1; text-align: center; margin: 10px;">
+            <img src="customer.webp" alt="Customer Satisfaction" style="width: 150px; border-radius: 50%; border: 2px solid #4CAF50;">
+            <h3 style="margin-top: 10px; color: #4CAF50;">Customer Satisfaction</h3>
+        </div>
+    </div>
+</div>
+
+    <!-- FontAwesome Icons CDN -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+   <!-- Bootstrap JS and dependencies -->
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
+ <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+ <footer class="bg-success text-white text-center py-3">
+    <p>&copy; 2024 Fertilizer Co. All rights reserved.</p>
+    <div class="social-icons">
+        <a href="#" class="text-white mx-2"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="text-white mx-2"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
+    </div>
+</footer>
+
+ <!-- Bootstrap JS and dependencies -->
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+ <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+      
+
+
+ <script>
+    document.getElementById('toggle-button').addEventListener('click', function() {
+        document.getElementById('nav-links').classList.toggle('active');
+        document.getElementById('col-auto').classList.toggle('active');
+    });
+</script>
+</body>
+</html>
